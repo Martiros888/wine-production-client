@@ -23,11 +23,13 @@ function AdminLogin() {
     const AutoLogin =async () =>{
         try {
             if(AdminToken.getToken()){
+                setload(true)
                 const { name } = await post('/tokenverify',{token:AdminToken.getToken()})
                 dispatch({type:'ADMIN',payload:name})
                 history.push('/admin')
             }
         } catch(err) {
+            setload(false)
             console.log(err)
         }
     }
