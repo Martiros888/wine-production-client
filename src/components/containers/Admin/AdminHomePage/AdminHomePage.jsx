@@ -65,7 +65,7 @@ function AdminHomePage() {
 
     const DeleteWines =async (e) => {
         setload(true)
-        const data = await post('/deletewine',{name:e.name})
+        const data = await post('/deletewine',{name:e.name,image_path:e.image_path})
         setload(false)
     }
     if(load){
