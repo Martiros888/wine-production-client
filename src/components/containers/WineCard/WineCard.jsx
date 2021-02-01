@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useMemo, memo } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import "./main.css";
 function WineCard({ elem }) {
+    const user = useSelector(state => state.Reducer.url);
+    const dispatch = useDispatch()
+    const AddToBasket = () => {
+        dispatch({type:"BASKETWINES",payload:elem})
+    }
+    const buyNow = () =>{
+
+    }
     return (
         <div className="product-card">
             <div className="product-img">
@@ -12,14 +21,14 @@ function WineCard({ elem }) {
                 />
             </div>
             <div className="product-btns">
-                <button type="button" className="btn-cart">
+                <button type="button" className="btn-cart" onClick={AddToBasket}>
                     {" "}
                     Ավելացնել
                     <span>
                         <i className="fas fa-plus"></i>
                     </span>
                 </button>
-                <button type="button" className="btn-buy">
+                <button type="button" className="btn-buy" onClick={buyNow}>
                     {" "}
                     Գնել հիմա
                     <span>
