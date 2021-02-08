@@ -5,25 +5,29 @@ const Reducer1  = {
     user:'',
     data:'',
     verify:true,
+    wines:[]
 }
 
 
 function reduxstate(state = Reducer1, action) {
     switch (action.type) {
-        case 'BASKETWINES':
-            return {
-                ...state,
-                BasketWines:[...state.BasketWines,action.payload]
-            }
         case "ADMIN":
             return {
                 ...state,
                 Admin:action.payload
             }
+        case "ADDTOBASKET":
+            console.log(action.payload)
+            return {
+                ...state,
+                wines:state.wines.filter(e=>e.name!==action.payload.name),
+                BasketWines:[...state.BasketWines,action.payload]
+            }
         case 'DELETEFROMBASKET':
             return {
                 ...state,
-                BasketWines:state.BasketWines.filter(e=>e.name!==action.payload)
+                wines:[...state.wines,action.payload],
+                BasketWines:state.BasketWines.filter(e=>e.name!==action.payload.name)
             }
         case "TRUE":
             return {
@@ -45,6 +49,12 @@ function reduxstate(state = Reducer1, action) {
                 ...state,
                 verify:action.payload
             }
+        case "WINES":{
+            return {
+                ...state,
+                wines:action.payload
+            }
+        }
         default:  
             return state
     }

@@ -7,29 +7,13 @@ import { UserToken } from '../UserToken/UserToken';
 
 
 function HomePage() {
-    const getWines =async () =>{
-        const data = await get('/getwines')
-        setwines(data)
-    }
-    const [wines, setwines] = useState([]);
+    const wines = useSelector(state => state.Reducer.wines);
+    const data = useSelector(state => state.Reducer.data);
     const dispatch = useDispatch();
-    const AutoLogin =async () => {
-        try {
-            if (UserToken.isLogin()) {
-                const data = await post('/usertokenverify',{token:UserToken.isLogin()})
-                console.log(data)
-                dispatch({type:'USER',payload:data.name});
-                dispatch({type:'DATA',payload:data});
-            }
-        } catch(err) {
-            console.log(err)
-        }
+    const AddToBasket =async (elem) => {
+        // dispatch({type:"ADDTOBASKET",payload:elem})
+        const res = await post('/basket/add',{data,wine:elem})
     }
-    useEffect(() => {
-        console.log('ok')
-        getWines()
-        AutoLogin()
-    }, []);
     return (
         <>
             <section className='HomePage'>
@@ -39,6 +23,7 @@ function HomePage() {
                         return (
                             <Fragment key={i}>
                                 <WineCard elem={elem}/>
+                                {data?<button onClick={AddToBasket.bind(null,elem)}>click for adding</button>:null}
                             </Fragment>
                         )
                     })}

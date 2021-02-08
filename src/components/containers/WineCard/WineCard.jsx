@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useMemo, memo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { post } from "../../Axios/Axios";
 import "./main.css";
-function WineCard({ elem }) {
-    const user = useSelector(state => state.Reducer.url);
-    const dispatch = useDispatch()
-    const AddToBasket = () => {
-        dispatch({type:"BASKETWINES",payload:elem})
-    }
-    const buyNow = () =>{
 
+function WineCard({ elem }) {
+    const data = useSelector(state => state.Reducer.data);
+    const dispatch = useDispatch()
+    const buyNow =async () =>{
+        if (data) {
+            const res = await post('/buywine',{data,wine:elem})
+            console.log(res)
+        }
     }
     return (
         <div className="product-card">
@@ -21,7 +23,7 @@ function WineCard({ elem }) {
                 />
             </div>
             <div className="product-btns">
-                <button type="button" className="btn-cart" onClick={AddToBasket}>
+                <button type="button" className="btn-cart" >
                     {" "}
                     Ավելացնել
                     <span>

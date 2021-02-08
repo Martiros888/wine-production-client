@@ -6,8 +6,8 @@ import WineCard from '../WineCard/WineCard';
 function BasketPage() {
     const dispatch = useDispatch()
     const wines = useSelector(state => state.Reducer.BasketWines);
-    const deleteFromBasket = (elem) => {
-        dispatch({type:'DELETEFROMBASKET',payload:elem.name})
+    const DeleteFromBasket = (elem) => {
+        dispatch({type:"DELETEFROMBASKET",payload:elem})
     }
     return (
         <>
@@ -18,7 +18,7 @@ function BasketPage() {
                         return (
                             <Fragment key={i}>
                                 <WineCard elem={elem}/>
-                                <button onClick={deleteFromBasket.bind(null,elem)}>delete From Basket</button>
+                                <button onClick={DeleteFromBasket.bind(null,elem)}>delete From Basket</button>
                             </Fragment>
                         )
                     })}
